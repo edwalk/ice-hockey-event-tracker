@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ice Hockey Event Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      margin: 0;
+      height: 100vh;
+      background-color: #620001;
+    }
+
+    .main-container {
+      background-color: #620001;
+      color: #ffffff;
+      padding: 15px;
+      border: 2px solid #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+      width: 95%;
+      max-width: 600px;
+      text-align: center;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .timer,
+    .control-buttons,
+    .button-container,
+    .input-container {
+      grid-column: span 2;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .button-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    button {
+      font-size: 16px;
+      padding: 20px 10px;
+      margin: 1px 0;
+      width: 100%;
+      background-color: #FFD700;
+      border: none;
+      border-radius: 5px;
+      color: #620001;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      position: relative;
+    }
+
+    .top-button {
+      width: auto;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+
+    button.goal {
+      background-color: #90EE90;
+    }
+
+    button.goal:hover {
+      background-color: #7ccd7c;
+    }
+
+    button:hover {
+      background-color: #ffc107;
+    }
+
+    .counter {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background-color: #FFAB00;
+      color: #620001;
+      font-size: 12px;
+      padding: 1px 4px;
+      border-radius: 50%;
+    }
+
+    .reset-button {
+      color: #ff0000;
+    }
+
+    .fullscreen-button {
+      background-color: #FFAB00;
+    }
+
+    #timerDisplay {
+      font-size: 1.5em;
+      margin-bottom: 2px;
+      padding: 2px 0;
+    }
+
+    #periodCounter {
+      font-size: 1em;
+      margin-bottom: 2px;
+      padding: 2px 0;
+    }
+
+    .team-name-input {
+      width: calc(100% - 40px);
+      padding: 6px;
+      font-size: 14px;
+      border-radius: 5px;
+      border: 1px solid #ffffff;
+      background-color: #ffffff;
+      color: #620001;
+      text-align: center;
+      height: 35px;
+      box-sizing: border-box;
+    }
+
+    .set-team-button {
+      width: 35px;
+      height: 35px;
+      font-size: 14px;
+      background-color: #FFAB00;
+      border: none;
+      border-radius: 5px;
+      color: #620001;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .set-team-button:hover {
+      background-color: #ffc107;
+    }
+
+    .input-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .control-buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .control-buttons button {
+      width: auto;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #FFD700;
+      border: none;
+      border-radius: 5px;
+      color: #620001;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .control-buttons button:hover {
+      background-color: #ffc107;
+    }
+
+    /* New CSS rule for smaller export buttons */
+    .export-button {
+      font-size: 12px;
+      padding: 5px 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main-container">
+    <div class="button-container">
+      <button class="top-button" id="startStopBtn">Start Timer</button>
+      <button class="top-button" id="resetTimerBtn">Reset Timer</button>
+      <button class="top-button fullscreen-button" id="fullscreenBtn">Full Screen</button>
+    </div>
+    <div class="input-container">
+      <input type="text" id="awayTeamNameInput" class="team-name-input" placeholder="Enter Away Team Name">
+      <button class="set-team-button" onclick="setAwayTeamName()">✔</button>
+    </div>
+    <div class="timer">
+      <div id="timerDisplay">00:00:00</div>
+      <div>Period: <span id="periodCounter">1</span></div>
+    </div>
+    <div class="button-column">
+      <h2>Warriors</h2>
+      <button class="goal" onclick="incrementCounter('whitleyGoals')">
+        Goals <span class="counter" id="whitleyGoals">0</span>
+      </button>
+      <button onclick="incrementCounter('whitleyBigChances')">
+        Big Chance <span class="counter" id="whitleyBigChances">0</span>
+      </button>
+      <button onclick="incrementCounter('whitleySmallChances')">
+        SOG <span class="counter" id="whitleySmallChances">0</span>
+      </button>
+      <button onclick="incrementCounter('whitleyFights')">
+        Other <span class="counter" id="whitleyFights">0</span>
+      </button>
+    </div>
+    <div class="button-column">
+      <h2 id="awayTeamNameHeader">Away Team</h2>
+      <button class="goal" onclick="incrementCounter('awayGoals')">
+        Goals <span class="counter" id="awayGoals">0</span>
+      </button>
+      <button onclick="incrementCounter('awayBigChances')">
+        Big Chance <span class="counter" id="awayBigChances">0</span>
+      </button>
+      <button onclick="incrementCounter('awaySmallChances')">
+        SOG <span class="counter" id="awaySmallChances">0</span>
+      </button>
+      <button onclick="incrementCounter('awayFights')">
+        Other <span class="counter" id="awayFights">0</span>
+      </button>
+    </div>
+    <div class="control-buttons">
+      <button class="export-button" onclick="exportCSV(1)">Export 1st</button>
+      <button class="export-button" onclick="exportCSV(2)">Export 2nd</button>
+      <button class="export-button" onclick="exportCSV(3)">Export 3rd</button>
+      <button class="reset-button" onclick="resetAllCounters()">✖</button>
+    </div>
+  </div>
+
+  <script>
+    let timer;
+    let isRunning = false;
+    let seconds = 0;
+    let period = 1;
+    let markers = [];
+
+    document.getElementById('startStopBtn').addEventListener('click', () => {
+      if (isRunning) {
+        clearInterval(timer);
+        document.getElementById('startStopBtn').textContent = 'Start Timer';
+      } else {
+        timer = setInterval(updateTimer, 1000);
+        document.getElementById('startStopBtn').textContent = 'Stop Timer';
+      }
+      isRunning = !isRunning;
+    });
+
+    document.getElementById('resetTimerBtn').addEventListener('click', () => {
+      clearInterval(timer);
+      seconds = 0;
+      document.getElementById('timerDisplay').textContent = '00:00:00';
+      document.getElementById('startStopBtn').textContent = 'Start Timer';
+      isRunning = false;
+      period++;
+      document.getElementById('periodCounter').textContent = period;
+    });
+
+    document.getElementById('fullscreenBtn').addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    });
+
+    function updateTimer() {
+      seconds++;
+      const hours = Math.floor(seconds / 3600);
+      const minutes = Math.floor((seconds % 3600) / 60);
+      const secs = seconds % 60;
+      document.getElementById('timerDisplay').textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
+
+    function incrementCounter(counterId) {
+      const counterElement = document.getElementById(counterId);
+      let count = parseInt(counterElement.textContent);
+      counterElement.textContent = ++count;
+      addMarker(counterId);
+    }
+
+    function addMarker(counterId) {
+      const timecode = Math.floor(seconds);
+      let eventType;
+      if (counterId.includes("SmallChances")) {
+        eventType = "SOG";
+      } else if (counterId.includes("Fights")) {
+        eventType = "Other";
+      } else {
+        eventType = counterId.replace(/(whitley|away)/, '').replace(/([A-Z])/, ' $1').trim();
+      }
+      const team = counterId.includes('whitley') ? 'Warriors' : document.getElementById('awayTeamNameHeader').textContent;
+      // Updated to use " - " between team name and event type
+      markers.push({ time: timecode, name: `${team} - ${eventType}`, period: period });
+    }
+
+    function resetCounter(counterId) {
+      document.getElementById(counterId).textContent = '0';
+    }
+
+    function resetAllCounters() {
+      const counters = ['whitleyGoals', 'whitleyBigChances', 'whitleySmallChances', 'whitleyFights',
+        'awayGoals', 'awayBigChances', 'awaySmallChances', 'awayFights'];
+      counters.forEach(counter => resetCounter(counter));
+      seconds = 0;
+      period = 1;
+      markers = [];
+      document.getElementById('timerDisplay').textContent = '00:00:00';
+      document.getElementById('periodCounter').textContent = period;
+      document.getElementById('awayTeamNameHeader').textContent = 'Away Team';
+      document.getElementById('awayTeamNameInput').value = '';
+    }
+
+    function exportCSV(periodNumber) {
+      // Updated header to "Timestamp,Comment" and using the marker name that now includes " - "
+      const csvContent = [
+        "Timestamp,Comment",
+        ...markers.filter(marker => marker.period === periodNumber)
+          .map(marker => `${marker.time},"${marker.name}"`)
+      ].join('\n');
+
+      const blob = new Blob([csvContent], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+
+      const currentDate = new Date();
+      const formattedDate = currentDate.toISOString().split('T')[0];
+      const warriorsName = 'Warriors';
+      const awayTeamName = document.getElementById('awayTeamNameHeader').textContent || 'Away Team';
+      const fileName = `${formattedDate}_${warriorsName}_vs_${awayTeamName}_period${periodNumber}.csv`;
+
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    function setAwayTeamName() {
+      const awayTeamName = document.getElementById('awayTeamNameInput').value || 'Away Team';
+      document.getElementById('awayTeamNameHeader').textContent = awayTeamName;
+    }
+  </script>
+</body>
+
+</html>
