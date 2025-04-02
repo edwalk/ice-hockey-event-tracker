@@ -11,25 +11,27 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 10px;
+      min-height: 100vh;
       margin: 0;
-      height: 100vh;
+      padding: 5px;
       background-color: #620001;
     }
 
     .main-container {
       background-color: #620001;
       color: #ffffff;
-      padding: 15px;
+      padding: 20px;
       border: 2px solid #ffffff;
       border-radius: 10px;
       box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
       width: 95%;
+      min-height: 95vh;
       max-width: 600px;
       text-align: center;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
+      box-sizing: border-box;
     }
 
     .timer,
@@ -42,22 +44,21 @@
     .button-container {
       display: flex;
       justify-content: center;
-      align-items: center;
       gap: 10px;
-      margin-bottom: 10px;
+      margin-bottom: 5px;
     }
 
     .button-column {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 10px;
+      gap: 5px;
+      padding: 0 10px;
     }
 
     button {
       font-size: 16px;
-      padding: 20px 10px;
-      margin: 1px 0;
+      padding: 42px 5px;
+      margin: 0;
       width: 100%;
       background-color: #FFD700;
       border: none;
@@ -67,12 +68,12 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
       position: relative;
+      box-sizing: border-box;
     }
 
     .top-button {
       width: auto;
       padding: 10px 20px;
-      font-size: 16px;
     }
 
     button.goal {
@@ -87,6 +88,11 @@
       background-color: #ffc107;
     }
 
+    button:focus-visible {
+      outline: 2px solid #ffffff;
+      outline-offset: 2px;
+    }
+
     .counter {
       position: absolute;
       top: -8px;
@@ -96,30 +102,48 @@
       font-size: 12px;
       padding: 1px 4px;
       border-radius: 50%;
+      min-width: 18px;
+      text-align: center;
     }
 
     .reset-button {
       color: #ff0000;
+      width: auto;
+      min-width: 40px;
+      padding: 10px 20px;
     }
 
     .fullscreen-button {
       background-color: #FFAB00;
     }
 
+    .export-button {
+      font-size: 12px;
+      padding: 10px 20px;
+      width: auto;
+      min-width: 80px;
+    }
+
     #timerDisplay {
       font-size: 1.5em;
       margin-bottom: 2px;
-      padding: 2px 0;
     }
 
     #periodCounter {
       font-size: 1em;
       margin-bottom: 2px;
-      padding: 2px 0;
+    }
+
+    .input-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
     }
 
     .team-name-input {
-      width: calc(100% - 40px);
+      width: calc(100% - 45px);
       padding: 6px;
       font-size: 14px;
       border-radius: 5px;
@@ -136,58 +160,99 @@
       height: 35px;
       font-size: 14px;
       background-color: #FFAB00;
-      border: none;
-      border-radius: 5px;
-      color: #620001;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
       display: flex;
       justify-content: center;
       align-items: center;
-    }
-
-    .set-team-button:hover {
-      background-color: #ffc107;
-    }
-
-    .input-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 10px;
+      flex-shrink: 0;
+      padding: 10px 20px;
     }
 
     .control-buttons {
       display: flex;
       justify-content: center;
-      align-items: center;
       gap: 10px;
+      margin-top: 15px;
       margin-bottom: 10px;
     }
 
-    .control-buttons button {
-      width: auto;
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #FFD700;
-      border: none;
-      border-radius: 5px;
-      color: #620001;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
+    @media (max-width: 480px) {
+      body {
+        padding: 5px;
+      }
 
-    .control-buttons button:hover {
-      background-color: #ffc107;
-    }
+      .main-container {
+        padding: 10px;
+        gap: 3px;
+        min-height: 95vh;
+      }
 
-    /* New CSS rule for smaller export buttons */
-    .export-button {
-      font-size: 12px;
-      padding: 5px 8px;
+      .button-container {
+        margin-bottom: 3px;
+      }
+
+      .input-container {
+        margin-bottom: 3px;
+      }
+
+      .control-buttons {
+        margin-top: 10px;
+        margin-bottom: 3px;
+      }
+
+      button {
+        padding: 45px 5px;
+        font-size: 14px;
+      }
+
+      .top-button {
+        padding: 8px 16px;
+      }
+
+      .control-buttons {
+        gap: 3px;
+      }
+
+      .export-button {
+        font-size: 11px;
+        padding: 8px 16px;
+        min-width: 60px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .reset-button {
+        min-width: 30px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .set-team-button {
+        width: 35px;
+        height: 35px;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #timerDisplay {
+        font-size: 1.2em;
+        margin-bottom: 1px;
+      }
+
+      #periodCounter {
+        font-size: 0.9em;
+        margin-bottom: 1px;
+      }
+
+      .team-name-input {
+        font-size: 13px;
+        height: 35px;
+      }
     }
   </style>
 </head>
@@ -246,13 +311,19 @@
   </div>
 
   <script>
-    let timer;
-    let isRunning = false;
-    let seconds = 0;
-    let period = 1;
-    let markers = [];
+    let timer = null, isRunning = false, seconds = 0, period = 1, markers = [];
 
-    document.getElementById('startStopBtn').addEventListener('click', () => {
+    function updateTimer() {
+      seconds++;
+      const [hours, minutes, secs] = [
+        Math.floor(seconds / 3600),
+        Math.floor((seconds % 3600) / 60),
+        seconds % 60
+      ].map(n => String(n).padStart(2, '0'));
+      document.getElementById('timerDisplay').textContent = `${hours}:${minutes}:${secs}`;
+    }
+
+    function startStopTimer() {
       if (isRunning) {
         clearInterval(timer);
         document.getElementById('startStopBtn').textContent = 'Start Timer';
@@ -261,64 +332,42 @@
         document.getElementById('startStopBtn').textContent = 'Stop Timer';
       }
       isRunning = !isRunning;
-    });
+    }
 
-    document.getElementById('resetTimerBtn').addEventListener('click', () => {
+    function resetTimer() {
       clearInterval(timer);
       seconds = 0;
       document.getElementById('timerDisplay').textContent = '00:00:00';
       document.getElementById('startStopBtn').textContent = 'Start Timer';
       isRunning = false;
-      period++;
-      document.getElementById('periodCounter').textContent = period;
-    });
-
-    document.getElementById('fullscreenBtn').addEventListener('click', () => {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen();
+      if (period >= 3) {
+        period = 1;
+        alert('Game Over! Resetting to Period 1.');
       } else {
-        document.exitFullscreen();
+        period++;
       }
-    });
-
-    function updateTimer() {
-      seconds++;
-      const hours = Math.floor(seconds / 3600);
-      const minutes = Math.floor((seconds % 3600) / 60);
-      const secs = seconds % 60;
-      document.getElementById('timerDisplay').textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      document.getElementById('periodCounter').textContent = period;
     }
 
     function incrementCounter(counterId) {
-      const counterElement = document.getElementById(counterId);
-      let count = parseInt(counterElement.textContent);
-      counterElement.textContent = ++count;
+      const counter = document.getElementById(counterId);
+      counter.textContent = parseInt(counter.textContent) + 1;
       addMarker(counterId);
     }
 
     function addMarker(counterId) {
-      const timecode = Math.floor(seconds);
-      let eventType;
-      if (counterId.includes("SmallChances")) {
-        eventType = "SOG";
-      } else if (counterId.includes("Fights")) {
-        eventType = "Other";
-      } else {
-        eventType = counterId.replace(/(whitley|away)/, '').replace(/([A-Z])/, ' $1').trim();
-      }
+      const eventType = counterId.includes("SmallChances") ? "SOG" :
+        counterId.includes("Fights") ? "Other" :
+          counterId.replace(/(whitley|away)/, '').replace(/([A-Z])/, ' $1').trim();
       const team = counterId.includes('whitley') ? 'Warriors' : document.getElementById('awayTeamNameHeader').textContent;
-      // Updated to use " - " between team name and event type
-      markers.push({ time: timecode, name: `${team} - ${eventType}`, period: period });
-    }
-
-    function resetCounter(counterId) {
-      document.getElementById(counterId).textContent = '0';
+      markers.push({ time: Math.floor(seconds), name: `${team} - ${eventType}`, period });
     }
 
     function resetAllCounters() {
-      const counters = ['whitleyGoals', 'whitleyBigChances', 'whitleySmallChances', 'whitleyFights',
-        'awayGoals', 'awayBigChances', 'awaySmallChances', 'awayFights'];
-      counters.forEach(counter => resetCounter(counter));
+      ['whitleyGoals', 'whitleyBigChances', 'whitleySmallChances', 'whitleyFights',
+        'awayGoals', 'awayBigChances', 'awaySmallChances', 'awayFights'].forEach(id => {
+          document.getElementById(id).textContent = '0';
+        });
       seconds = 0;
       period = 1;
       markers = [];
@@ -326,37 +375,61 @@
       document.getElementById('periodCounter').textContent = period;
       document.getElementById('awayTeamNameHeader').textContent = 'Away Team';
       document.getElementById('awayTeamNameInput').value = '';
+      if (timer) clearInterval(timer);
+      isRunning = false;
+      document.getElementById('startStopBtn').textContent = 'Start Timer';
     }
 
     function exportCSV(periodNumber) {
-      // Updated header to "Timestamp,Comment" and using the marker name that now includes " - "
-      const csvContent = [
-        "Timestamp,Comment",
-        ...markers.filter(marker => marker.period === periodNumber)
-          .map(marker => `${marker.time},"${marker.name}"`)
-      ].join('\n');
+      try {
+        const periodMarkers = markers.filter(m => m.period === periodNumber);
+        const csvContent = [
+          "Timestamp,Comment",
+          ...periodMarkers.map(m => `${m.time},"${m.name}"`)
+        ].join('\n');
 
-      const blob = new Blob([csvContent], { type: 'text/csv' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
+        const blob = new Blob([csvContent], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        const date = new Date().toISOString().split('T')[0];
+        const awayTeam = document.getElementById('awayTeamNameHeader').textContent || 'Away Team';
 
-      const currentDate = new Date();
-      const formattedDate = currentDate.toISOString().split('T')[0];
-      const warriorsName = 'Warriors';
-      const awayTeamName = document.getElementById('awayTeamNameHeader').textContent || 'Away Team';
-      const fileName = `${formattedDate}_${warriorsName}_vs_${awayTeamName}_period${periodNumber}.csv`;
-
-      a.href = url;
-      a.download = fileName;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
+        a.href = url;
+        a.download = `${date}_Warriors_vs_${awayTeam}_period${periodNumber}.csv`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      } catch (error) {
+        console.error('Error exporting CSV:', error);
+        alert('Failed to export CSV. Please try again.');
+      }
     }
 
     function setAwayTeamName() {
-      const awayTeamName = document.getElementById('awayTeamNameInput').value || 'Away Team';
-      document.getElementById('awayTeamNameHeader').textContent = awayTeamName;
+      const name = document.getElementById('awayTeamNameInput').value || 'Away Team';
+      document.getElementById('awayTeamNameHeader').textContent = name;
     }
+
+    document.getElementById('startStopBtn').addEventListener('click', startStopTimer);
+    document.getElementById('resetTimerBtn').addEventListener('click', resetTimer);
+    document.getElementById('fullscreenBtn').addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {
+          console.warn('Fullscreen request failed:', err);
+          alert('Fullscreen mode is not supported or was denied. Please try using the browser\'s fullscreen button (F11).');
+        });
+      } else {
+        document.exitFullscreen().catch(err => {
+          console.warn('Fullscreen exit failed:', err);
+          alert('Failed to exit fullscreen mode. Please try using the browser\'s fullscreen button (F11).');
+        });
+      }
+    });
+
+    window.addEventListener('beforeunload', () => {
+      if (timer) clearInterval(timer);
+    });
   </script>
 </body>
 
